@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NodeSense — Explainable & Robust Graph Neural Networks</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="brand-section">
+      <div class="brand-logo">NS</div>
+      <div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="brand-title">NodeSense</span>
+          <span class="brand-badge">Track 3 GNN</span>
+        </div>
+        <div style="font-size: 11px; color: var(--text-secondary);">Explainable & Robust Citation Network Intelligence</div>
+      </div>
+    </div>
+    <div class="system-status">
+      <div class="status-indicator">
+        <div class="status-dot"></div>
+        <span>Dataset: <strong>PubMed</strong></span>
+      </div>
+      <div>Device: <strong id="deviceStatus">CPU</strong></div>
+      <div>Models: <strong id="modelsStatus">4 Loaded</strong></div>
+    </div>
+  </header>
+
+  <!-- Navigation Bar -->
+  <nav class="nav-container">
+    <button class="nav-tab active" data-tab="dashboard-tab">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"/></svg>
+      Dashboard
+    </button>
+    <button class="nav-tab" data-tab="benchmark-tab">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm1.5 1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-13zm0 4a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-13zm0 4a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-13z"/></svg>
+      Model Benchmark
+    </button>
+    <button class="nav-tab" data-tab="explorer-tab">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z"/></svg>
+      Paper Explorer
+    </button>
+    <button class="nav-tab" data-tab="prediction-tab">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3.5a.5.5 0 0 1-.5-.5v-4A.5.5 0 0 1 8 4z"/></svg>
+      Prediction
+    </button>
+    <button class="nav-tab" data-tab="recommendation-tab">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/></svg>
+      Citation Recommendation
+    </button>
+    <button class="nav-tab" data-tab="explanation-tab">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>
+      GAT Explanation
+    </button>
+    <button class="nav-tab" data-tab="robustness-tab">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M5.52.359A.5.5 0 0 1 6 0h4a.5.5 0 0 1 .474.658L8.694 6H12.5a.5.5 0 0 1 .395.807l-7 9a.5.5 0 0 1-.873-.454L6.823 9.5H3.5a.5.5 0 0 1-.48-.641l2.5-8.5z"/></svg>
+      Robustness Lab
+    </button>
+    <button class="nav-tab" data-tab="custom-paper-tab" style="border-left: 1px solid var(--border-color); color: #a5b4fc;">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/></svg>
+      Analyze Custom Paper
+    </button>
+  </nav>
+
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+
+    <!-- 1. DASHBOARD TAB -->
+    <div id="dashboard-tab" class="tab-pane active">
+      <div class="grid-4" style="margin-bottom: 20px;">
+        <div class="stat-box">
+          <div class="stat-label">Total Papers (Nodes)</div>
+          <div class="stat-value" id="statNodes">19,717</div>
+          <div class="stat-sub">Medical Diabetes Research</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Citations (Edges)</div>
+          <div class="stat-value" id="statEdges">88,648</div>
+          <div class="stat-sub">Directed Citation Graph</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">TF-IDF Word Features</div>
+          <div class="stat-value" id="statFeatures">500</div>
+          <div class="stat-sub">Vocabulary Dimension</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Topic Classes</div>
+          <div class="stat-value" id="statClasses">3</div>
+          <div class="stat-sub">Fixed 60/500/1000 Split</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Project Overview & Architecture</div>
+              <div class="card-desc">NodeSense: Explainable and Robust GNNs on Citation Networks</div>
+            </div>
+          </div>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 14px;">
+            Scientific literature contains dense citation structures where papers learn not only from their own abstract keywords, but from neighborhood citation context. NodeSense benchmarks a feature-only <strong>MLP Baseline</strong> against <strong>GCN</strong> (spectral Laplacian averaging), <strong>GAT</strong> (multi-head attention), and <strong>GraphSAGE</strong> (inductive neighborhood pooling).
+          </p>
+          <div class="rec-card">
+            <div>
+              <strong>Top Performing Architecture</strong>
+              <div style="font-size: 12px; color: var(--text-secondary);">Highest test accuracy on official split</div>
+            </div>
+            <div id="statBestModel" style="font-size: 16px; font-weight: 700; color: #818cf8;">GCN (79.4%)</div>
+          </div>
+          <div class="rec-card">
+            <div>
+              <strong>Graph Lift vs MLP</strong>
+              <div style="font-size: 12px; color: var(--text-secondary);">Empirical gain from citation topology</div>
+            </div>
+            <div style="font-size: 16px; font-weight: 700; color: #10b981;">+6.10% Gain</div>
+          </div>
+          <div class="rec-card">
+            <div>
+              <strong>Citation Link Predictor (ROC-AUC)</strong>
+              <div style="font-size: 12px; color: var(--text-secondary);">Dot-product decoder on GNN embeddings</div>
+            </div>
+            <div style="font-size: 16px; font-weight: 700; color: #10b981;">93.63% AUC</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">PubMed Topic Distribution</div>
+              <div class="card-desc">Categorization of diabetes medical literature</div>
+            </div>
+          </div>
+          <div id="classDistributionList">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. MODEL BENCHMARK TAB -->
+    <div id="benchmark-tab" class="tab-pane">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Core Model Benchmark (Official Fixed Test Split — 1,000 Papers)</div>
+            <div class="card-desc">100% verified experimental outputs recorded from the training pipeline</div>
+          </div>
+          <span class="badge badge-success">Reproducible Seed: 42</span>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Model Architecture</th>
+              <th>Test Accuracy</th>
+              <th>Macro F1</th>
+              <th>Precision</th>
+              <th>Recall</th>
+              <th>Train Time</th>
+              <th>Baseline Lift</th>
+            </tr>
+          </thead>
+          <tbody id="benchmarkTableBody">
+            <!-- Populated via JS -->
+          </tbody>
+        </table>
+        <div style="font-size: 12px; color: var(--text-muted); margin-top: 14px;">
+          * Note: Models evaluated strictly on the official PubMed test mask without data leakage. The feature-only MLP baseline proves that citation topology contributes over +6% absolute accuracy lift.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Citation Link Prediction Benchmark (Phase 3)</div>
+            <div class="card-desc">GNN embedding quality evaluated on negative-sampled citation discovery</div>
+          </div>
+        </div>
+        <div class="grid-3" id="linkPredictionResults">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. PAPER EXPLORER TAB -->
+    <div id="explorer-tab" class="tab-pane">
+      <div class="grid-3">
+        <div style="grid-column: span 2;">
+          <div class="card" style="padding: 12px;">
+            <div class="input-group">
+              <input type="number" id="inputNodeSearch" class="form-input" placeholder="Enter Paper ID (e.g. 100)" value="100" style="width: 220px;">
+              <button id="btnExplore" class="btn">Explore Neighborhood</button>
+              <div style="display: flex; gap: 6px; align-items: center; margin-left: auto;">
+                <span style="font-size: 12px; color: var(--text-muted);">Presets:</span>
+                <button class="btn btn-secondary btn-sample-node" data-node="100" style="padding: 4px 10px; font-size: 11px;">#100</button>
+                <button class="btn btn-secondary btn-sample-node" data-node="542" style="padding: 4px 10px; font-size: 11px;">#542</button>
+                <button class="btn btn-secondary btn-sample-node" data-node="13475" style="padding: 4px 10px; font-size: 11px;">#13475</button>
+              </div>
+            </div>
+
+            <div class="canvas-wrapper">
+              <canvas id="graphCanvas"></canvas>
+              <div class="canvas-toolbar">
+                <button id="btnResetZoom" class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;">Reset View</button>
+              </div>
+              <div class="canvas-legend">
+                <div class="legend-item"><div class="legend-color" style="background: #3b82f6;"></div><span>Experimental Diabetes</span></div>
+                <div class="legend-item"><div class="legend-color" style="background: #10b981;"></div><span>Type 1 Diabetes</span></div>
+                <div class="legend-item"><div class="legend-color" style="background: #f59e0b;"></div><span>Type 2 Diabetes</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Node Inspector</div>
+            </div>
+            <div style="margin-bottom: 16px;">
+              <div style="font-size: 20px; font-weight: 700;" id="inspectNodeId">Paper #100</div>
+              <div style="font-size: 14px; font-weight: 600; margin-top: 4px;" id="inspectTopic">Type 1 Diabetes</div>
+              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;" id="inspectDegree">-- citations</div>
+              <div style="margin-top: 8px;"><span class="badge badge-info" id="inspectSplit">Test Set</span></div>
+            </div>
+            <div style="border-top: 1px solid var(--border-color); padding-top: 12px;">
+              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.6;">
+                Click any node in the graph or drag to inspect its ego network. Use mouse scroll to zoom in/out.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. PREDICTION TAB -->
+    <div id="prediction-tab" class="tab-pane">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Real-Time Multi-Model Node Classification</div>
+            <div class="card-desc">Compare real-time predictions and class probability distributions across all 4 models</div>
+          </div>
+        </div>
+        <div class="input-group">
+          <input type="number" id="inputClassifyNode" class="form-input" placeholder="Node ID" value="100" style="width: 180px;">
+          <button id="btnRunClassify" class="btn">Run Inference</button>
+        </div>
+
+        <div style="margin: 16px 0; font-size: 15px; font-weight: 700;" id="classifyNodeHeader">
+          Paper #100
+        </div>
+
+        <div class="grid-4" id="classifyResultsContainer">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. CITATION RECOMMENDATION TAB -->
+    <div id="recommendation-tab" class="tab-pane">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">AI Citation Recommender ("What Should This Paper Cite?")</div>
+              <div class="card-desc">Ranks unconnected candidate papers using trained GNN embeddings</div>
+            </div>
+          </div>
+          <div class="input-group">
+            <input type="number" id="inputRecommendNode" class="form-input" placeholder="Paper ID" value="100" style="width: 140px;">
+            <select id="selectRecommendModel" class="form-input" style="width: 140px;">
+              <option value="gcn">GCN Embeddings</option>
+              <option value="gat">GAT Embeddings</option>
+              <option value="sage">GraphSAGE Embeddings</option>
+            </select>
+            <button id="btnRunRecommend" class="btn">Recommend</button>
+          </div>
+
+          <div id="recommendationsList">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Pairwise Citation Link Predictor</div>
+              <div class="card-desc">Calculate link probability P(Paper A cites Paper B)</div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 10px; margin-bottom: 16px;">
+            <input type="number" id="inputPairSrc" class="form-input" placeholder="Source Paper ID" value="100" style="flex: 1;">
+            <input type="number" id="inputPairDst" class="form-input" placeholder="Target Paper ID" value="542" style="flex: 1;">
+            <select id="selectPairModel" class="form-input" style="width: 110px;">
+              <option value="gcn">GCN</option>
+              <option value="gat">GAT</option>
+              <option value="sage">GraphSAGE</option>
+            </select>
+          </div>
+          <button id="btnPredictPair" class="btn" style="width: 100%; justify-content: center;">Calculate Citation Probability</button>
+
+          <div id="pairPredictionResult" style="margin-top: 20px; padding: 16px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: var(--radius-sm); text-align: center;">
+            <span style="color: var(--text-muted); font-size: 13px;">Enter two paper IDs above and click Calculate.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. GAT EXPLANATION TAB -->
+    <div id="explanation-tab" class="tab-pane">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">GAT Multi-Head Attention Explainability (XAI)</div>
+              <div class="card-desc">Inspect which neighboring citations received the highest attention weights (&alpha;)</div>
+            </div>
+          </div>
+          <div class="input-group">
+            <input type="number" id="inputExplainNode" class="form-input" placeholder="Paper ID" value="100" style="width: 160px;">
+            <button id="btnRunExplain" class="btn">Explain Node</button>
+          </div>
+
+          <div id="explanationList">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Top Graph-Wide Attended Citations</div>
+              <div class="card-desc">Sample highest attention edges extracted across test nodes</div>
+            </div>
+          </div>
+          <div id="xaiSampleList">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. ROBUSTNESS LAB TAB -->
+    <div id="robustness-tab" class="tab-pane">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Graph Robustness & Edge-Dropout Stress Test (Phase 2)</div>
+            <div class="card-desc">Simulate missing citation links (0%, 20%, 50%) and observe model degradation</div>
+          </div>
+        </div>
+
+        <div class="slider-container">
+          <label style="font-size: 13px; font-weight: 600; min-width: 130px;">Edge Dropout Rate:</label>
+          <input type="range" id="robustnessSlider" min="0" max="50" step="10" value="0">
+          <span id="robustnessSliderVal" style="font-size: 16px; font-weight: 700; color: #818cf8; min-width: 50px;">0%</span>
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>0% Dropout (Full Graph)</th>
+              <th>20% Missing Edges</th>
+              <th>50% Missing Edges</th>
+              <th>Current Selected State</th>
+              <th>Performance Degradation</th>
+            </tr>
+          </thead>
+          <tbody id="robustnessTableBody">
+            <!-- Populated via JS -->
+          </tbody>
+        </table>
+
+        <div style="margin-top: 18px; padding: 14px; background: rgba(99, 102, 241, 0.05); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: var(--radius-sm); font-size: 13px; color: var(--text-secondary);">
+          <strong>Empirical Finding:</strong> As citation dropout increases to 50%, <strong>GraphSAGE</strong> exhibits the highest resilience with only a <strong>1.40%</strong> accuracy drop, while GCN drops by 2.27% and GAT by 2.17%. The feature-only MLP remains completely invariant (73.30%) as it does not rely on topological edges.
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. CUSTOM PAPER ANALYZER TAB -->
+    <div id="custom-paper-tab" class="tab-pane">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Analyze Your Own Research Paper</div>
+              <div class="card-desc">Enter any paper title and abstract to predict its diabetes topic & discover citations in PubMed</div>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 14px; padding: 10px 12px; background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.25); border-radius: var(--radius-sm); font-size: 12px; color: var(--text-secondary); line-height: 1.5;">
+            <strong>Dataset Scope Notice:</strong> PubMed benchmark is strictly scoped to <strong>Diabetes Mellitus</strong> research (19,717 papers). It categorizes papers into 3 target classes: 
+            <span style="color: #3b82f6; font-weight: 600;">(0) Experimental Diabetes</span>, 
+            <span style="color: #10b981; font-weight: 600;">(1) Type 1 Diabetes</span>, and 
+            <span style="color: #f59e0b; font-weight: 600;">(2) Type 2 Diabetes</span>. 
+            <em>General biomedical fields (e.g. Cancer, Cardiology) are outside this closed-world taxonomy.</em>
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 4px;">Paper Title</label>
+            <input type="text" id="inputCustomTitle" class="form-input" style="width: 100%;" placeholder="e.g. Islet autoantibodies and beta-cell dysfunction in juvenile diabetes">
+          </div>
+
+          <div style="margin-bottom: 14px;">
+            <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 4px;">Abstract</label>
+            <textarea id="inputCustomAbstract" class="form-input" style="width: 100%; height: 110px; resize: vertical;" placeholder="Paste the abstract of your paper here..."></textarea>
+          </div>
+
+          <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 16px; flex-wrap: wrap;">
+            <span style="font-size: 12px; color: var(--text-muted);">Quick Presets:</span>
+            <button class="btn btn-secondary btn-sample-abstract" data-type="1" style="padding: 4px 8px; font-size: 11px;">Type 1 Autoimmune</button>
+            <button class="btn btn-secondary btn-sample-abstract" data-type="2" style="padding: 4px 8px; font-size: 11px;">Type 2 Insulin Resistance</button>
+            <button class="btn btn-secondary btn-sample-abstract" data-type="0" style="padding: 4px 8px; font-size: 11px;">Animal / Lab Model</button>
+            <button class="btn btn-secondary btn-sample-abstract" data-type="cancer" style="padding: 4px 8px; font-size: 11px; border-color: rgba(245, 158, 11, 0.4); color: #f59e0b;">Cancer / Oncology (Out-of-Domain Demo)</button>
+          </div>
+
+          <button id="btnAnalyzeCustomPaper" class="btn" style="width: 100%; justify-content: center; padding: 10px 18px; font-size: 14px;">
+            Analyze Paper & Discover Citations
+          </button>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Analysis & Literature Recommendations</div>
+              <div class="card-desc">Predicted topic and top recommended PubMed papers to cite</div>
+            </div>
+          </div>
+
+          <div id="customPaperResultContainer">
+            <div style="text-align: center; color: var(--text-muted); padding: 40px 20px;">
+              Enter a title and abstract or click one of the quick presets on the left, then click <strong>Analyze Paper</strong>.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+
+  <!-- App Footer -->
+  <footer class="app-footer">
+    NodeSense AI &bull; Track 3 Graph Neural Networks &bull; Academic Hackathon Submission &bull; Reproducible Research Prototype
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/graph_vis.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

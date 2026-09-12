@@ -1,0 +1,122 @@
+[
+  {
+    "source_node": 13475,
+    "target_node": 10656,
+    "attention_weight": 0.5706,
+    "source_class": "Experimental Diabetes",
+    "target_class": "Type 2 Diabetes",
+    "same_topic": false
+  },
+  {
+    "source_node": 16809,
+    "target_node": 16809,
+    "attention_weight": 0.5569,
+    "source_class": "Experimental Diabetes",
+    "target_class": "Experimental Diabetes",
+    "same_topic": true
+  },
+  {
+    "source_node": 18447,
+    "target_node": 18447,
+    "attention_weight": 0.5567,
+    "source_class": "Experimental Diabetes",
+    "target_class": "Experimental Diabetes",
+    "same_topic": true
+  },
+  {
+    "source_node": 14214,
+    "target_node": 14214,
+    "attention_weight": 0.5538,
+    "source_class": "Experimental Diabetes",
+    "target_class": "Experimental Diabetes",
+    "same_topic": true
+  },
+  {
+    "source_node": 13635,
+    "target_node": 13635,
+    "attention_weight": 0.5537,
+    "source_class": "Type 2 Diabetes",
+    "target_class": "Type 2 Diabetes",
+    "same_topic": true
+  },
+  {
+    "source_node": 4588,
+    "target_node": 4588,
+    "attention_weight": 0.5529,
+    "source_class": "Experimental Diabetes",
+    "target_class": "Experimental Diabetes",
+    "same_topic": true
+  },
+  {
+    "source_node": 10147,
+    "target_node": 10147,
+    "attention_weight": 0.5528,
+    "source_class": "Experimental Diabetes",
+    "target_class": "Experimental Diabetes",
+    "same_topic": true
+  },
+  {
+    "source_node": 6202,
+    "target_node": 6202,
+    "attention_weight": 0.5522,
+    "source_class": "Experimental Diabetes",
+    "target_class": "Experimental Diabetes",
+    "same_topic": true
+  },
+  {
+    "source_node": 9329,
+    "target_node": 9329,
+    "attention_weight": 0.5519,
+    "source_class": "Type 2 Diabetes",
+    "target_class": "Type 2 Diabetes",
+    "same_topic": true
+  },
+  {
+    "source_node": 19650,
+    "target_node": 19650,
+    "attention_weight": 0.5518,
+    "source_class": "Experimental Diabetes",
+    "target_class": "Experimental Diabetes",
+    "same_topic": true
+  },
+  {
+    "source_node": 2300,
+    "target_node": 17179,
+    "attention_weight": 0.5518,
+    "source_class": "Experimental Diabetes",
+    "target_class": "Experimental Diabetes",
+    "same_topic": true
+  },
+  {
+    "source_node": 7474,
+    "target_node": 7474,
+    "attention_weight": 0.5503,
+    "source_class": "Experimental Diabetes",
+    "target_class": "Experimental Diabetes",
+    "same_topic": true
+  },
+  {
+    "source_node": 12292,
+    "target_node": 12292,
+    "attention_weight": 0.5502,
+    "source_class": "Experimental Diabetes",
+    "target_class": "Experimental Diabetes",
+    "same_topic": true
+  },
+  {
+    "source_node": 18735,
+    "target_node": 5660,
+    "attention_weight": 0.5498,
+    "source_class": "Experimental Diabetes",
+    "target_class": "Type 2 Diabetes",
+    "same_topic": false
+  },
+  {
+    "source_node": 11842,
+    "target_node": 17293,
+    "attention_weight": 0.5496,
+    "source_class": "Experimental Diabetes",
+    "target_class": "Type 1 Diabetes",
+    "same_topic": false
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "dataset_name": "PubMed (Diabetes Citation Network)",
+  "num_nodes": 19717,
+  "num_edges": 88648,
+  "num_features": 500,
+  "num_classes": 3,
+  "train_nodes": 60,
+  "val_nodes": 500,
+  "test_nodes": 1000,
+  "avg_degree": 4.5,
+  "max_degree": 171,
+  "class_distribution": {
+    "Experimental Diabetes": 4103,
+    "Type 1 Diabetes": 7739,
+    "Type 2 Diabetes": 7875
+  }
+}

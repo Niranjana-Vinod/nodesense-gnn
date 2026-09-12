@@ -1,0 +1,14 @@
+{
+  "GCN": {
+    "roc_auc": 0.9347,
+    "average_precision": 0.9176
+  },
+  "GAT": {
+    "roc_auc": 0.8319,
+    "average_precision": 0.7899
+  },
+  "GraphSAGE": {
+    "roc_auc": 0.7987,
+    "average_precision": 0.7766
+  }
+}

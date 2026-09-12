@@ -1,0 +1,42 @@
+[
+  {
+    "accuracy": 0.733,
+    "macro_f1": 0.7319,
+    "precision": 0.7348,
+    "recall": 0.7368,
+    "model": "MLP (Baseline)",
+    "training_time_sec": 3.06,
+    "beats_baseline": null,
+    "delta_vs_baseline": 0.0
+  },
+  {
+    "accuracy": 0.794,
+    "macro_f1": 0.7914,
+    "precision": 0.7924,
+    "recall": 0.7928,
+    "model": "GCN",
+    "training_time_sec": 5.83,
+    "beats_baseline": true,
+    "delta_vs_baseline": 0.061
+  },
+  {
+    "accuracy": 0.767,
+    "macro_f1": 0.7648,
+    "precision": 0.7587,
+    "recall": 0.7751,
+    "model": "GAT",
+    "training_time_sec": 11.48,
+    "beats_baseline": true,
+    "delta_vs_baseline": 0.034
+  },
+  {
+    "accuracy": 0.763,
+    "macro_f1": 0.7601,
+    "precision": 0.7561,
+    "recall": 0.7647,
+    "model": "GraphSAGE",
+    "training_time_sec": 11.33,
+    "beats_baseline": true,
+    "delta_vs_baseline": 0.03
+  }
+]

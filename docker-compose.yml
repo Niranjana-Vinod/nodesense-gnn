@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  nodesense:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+    volumes:
+      # Mount checkpoints and results to persist them across container restarts
+      - ./backend/checkpoints:/app/backend/checkpoints
+      - ./backend/results:/app/backend/results
+    restart: unless-stopped
